@@ -218,9 +218,10 @@ See `.env.example` for the full list.
 <details>
 <summary>Click to expand authentication notes</summary>
 
-- The Web UI uses a login page and validates credentials through `POST /auth/status`.
-- After login, the frontend stores local auth state for route guards and WebSocket startup.
-- The default credentials are `admin/admin123`; change them in production.
+- The Web UI validates credentials through `POST /auth/status` and establishes a signed server session.
+- After login, the browser stores only an HttpOnly signed cookie; every `/api` request and WebSocket connection is verified by the backend.
+- Change the default `admin/admin123` credentials in production and set a separate, high-entropy `WEB_SESSION_SECRET`.
+- Set `WEB_COOKIE_SECURE=true` behind HTTPS. Adjust session lifetime with `WEB_SESSION_TTL_SECONDS`.
 
 </details>
 

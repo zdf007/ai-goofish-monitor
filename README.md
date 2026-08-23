@@ -231,9 +231,10 @@ cd web-ui && npm run build
 <details>
 <summary>点击展开认证说明</summary>
 
-- Web UI 当前使用登录页收集账号密码，并通过 `POST /auth/status` 校验。
-- 登录成功后，前端会在浏览器本地保存登录状态，用于路由守卫和 WebSocket 初始化。
-- 默认账号密码为 `admin/admin123`，生产环境请务必修改。
+- Web UI 使用登录页收集账号密码，并通过 `POST /auth/status` 建立后端签名会话。
+- 登录成功后，浏览器只保存签名的 HttpOnly Cookie；所有 `/api` 请求和 WebSocket 连接都会在后端验证会话。
+- 默认账号密码为 `admin/admin123`，生产环境请务必修改，并设置独立的高强度 `WEB_SESSION_SECRET`。
+- HTTPS 部署请设置 `WEB_COOKIE_SECURE=true`；会话有效期可通过 `WEB_SESSION_TTL_SECONDS` 调整。
 
 </details>
 
