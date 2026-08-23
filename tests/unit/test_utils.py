@@ -51,4 +51,11 @@ def test_save_to_jsonl(tmp_path, monkeypatch):
             sort_order="asc",
         )
     )
-    assert records == [record]
+    assert len(records) == 1
+    saved_record = records[0]
+    for key, value in record.items():
+        assert saved_record[key] == value
+    assert saved_record["_status"] == "active"
+    assert saved_record["_matched_blacklist_keywords"] == []
+    assert saved_record["_hidden_reason"] is None
+    assert saved_record["_effective_hidden"] is False
